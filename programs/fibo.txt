@@ -1,0 +1,35 @@
+-- * * * Calcul de la suite de Fibonacci * * *
+-- A chaque itération M2 vaut n et M4 fn
+
+1A00 -- CD
+1C07 -- CO 7
+
+3200 -- ZB -- n = 0  -- M2
+3300 -- ZB -- u0 = 0  -- M3
+3100 -- ZB
+A001 -- AN
+8400 -- OB -- u1 = 1  -- M4
+
+-- tant que:
+
+6300 -- m1 = u0
+A400 -- m1 = u0 + u1
+8500 -- somme dans M5
+
+6400
+8300 -- m4 -> m3
+
+6500
+8400 -- m5 -> m4
+8E00 -- ecriture sur extracteur sortie
+
+6200
+A001
+8200 -- n++
+8D00 -- ecriture sur extracteur sortie
+
+1800 -- afficher sortie 0
+1801 -- afficher sortie 1
+
+900F -- compare n a 15
+011D -- V, saut l7
