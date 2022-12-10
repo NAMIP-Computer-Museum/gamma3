@@ -225,10 +225,13 @@ public class Memory extends Word {
 		assert (from < to) : "from should be smaller than to";
 		assert (value >= 0) : "value should be an absolute value";
 		assert (to <= this.blocks.length) : "to should not be greater than the number of blocks per memory";
+		System.out.println("SDV: "+value+" "+from+" "+to);
 		String sval=Long.toString(value, this.getMode().base);
+		System.out.println(sval);
 		int i = 0;
 		for (; i + from < to && i < sval.length(); ++i) {
-			this.blocks[from + i] = (byte)Integer.parseInt(sval.charAt(sval.length()-i)+"", this.getMode().base); // TODO check
+			System.out.println("i:"+i);
+			this.blocks[from + i] = (byte)Integer.parseInt(sval.charAt(sval.length()-i-1)+"", this.getMode().base); // TODO check
 		}
 		for (; i + from < to ; ++i) {
 			this.blocks[from + i] = (byte)0;
@@ -241,7 +244,7 @@ public class Memory extends Word {
 	 * @param from index of the block from which the subtraction should start
 	 * @param to index of the block to which the subtraction should end (excluded)
 	 */
-	public void subtract(Memory other, byte from, byte to, byte this_from, byte this_to) {  // TODO deafault values
+	public void subtract(Memory other, byte from, byte to, byte this_from, byte this_to) {
 		assert (from >= 0) : "from should not be negative";
 		assert (from < to) : "from should be inferior to to";
 		assert (to <= this.blocks.length) : "to should be inferior to the number of blocks per memory";
@@ -256,7 +259,10 @@ public class Memory extends Word {
 		subtract(other,from,to,from,to);
 	}
 
-
+	public void subtract(Memory other) {
+		subtract(other, (byte)0, (byte)this.blocks.length, (byte)0, (byte)this.blocks.length);
+	}
+	
 	/**
 	 * multiply the given memory to this one
 	 * @param other the memory that should be multiplied

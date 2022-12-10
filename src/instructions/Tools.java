@@ -4,6 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import machine.BullGamma;
+import machine.Memory;
 
 public abstract class Tools {
 
@@ -17,12 +18,20 @@ public abstract class Tools {
 		for(int i=0; i<n; i++) sb.append("0");
 		return sb.toString();
 	}
-	
+
 	public static long pow(long a, int b) {
-	    if ( b == 0) return 1;
-	    if ( b == 1) return a;
-	    if ( b%2==0) return pow ( a * a, b/2); //even a=(a^2)^b/2
-	    else         return a * pow ( a * a, b/2); //odd  a=a*(a^2)^b/2
+		if ( b == 0) return 1;
+		if ( b == 1) return a;
+		if ( b%2==0) return pow ( a * a, b/2); //even a=(a^2)^b/2
+		else         return a * pow ( a * a, b/2); //odd  a=a*(a^2)^b/2
+	}
+
+	public static long toLong(Memory m) {
+		long  total = 0;
+		for (int i = 0; i < 12; ++i) {
+			total += m.blocks[i]*Tools.pow(10,i);
+		}
+		return total;
 	}
 
 	public static String parse_hex_code(String entry, int size) throws Exception {
@@ -34,7 +43,7 @@ public abstract class Tools {
 		System.out.println(hexCode);
 		System.out.println(hexCode.length());
 		System.out.println("=====================================");
-		
+
 		Matcher matcher = pattern.matcher(hexCode);
 		if (!matcher.matches()){
 			throw new Exception("Invalid hex code."); // TODO specific exception
@@ -74,7 +83,7 @@ public abstract class Tools {
 						parseHex(four_hex_chunk.charAt(2)),
 						parseHex(four_hex_chunk.charAt(3)),
 						bullGamma);
-						i++;
+				i++;
 			} catch (Exception e) {
 				throw new Error("Parsing error at instruction #" + (i+1) + ": " + e.getMessage());
 			}
@@ -111,13 +120,13 @@ public abstract class Tools {
 			case 5: case 6: case 7:
 				return new VRS(AD, OD, OF, bullGamma);
 			case 8: case 9:
-				return new NOP(bullGamma); //ES(AD, OD, OF, bullGamma);
+				return new ES(AD, OD, OF, bullGamma);
 			case 10:
 				return new CD(OD, OF, bullGamma);
 			case 12:
 				return new CO(OD, OF, bullGamma);
 			case 13:
-				return new NOP(bullGamma); //new CSz(OD, OF, bullGamma);
+				return new CSz(OD, OF, bullGamma);
 			case 15:
 				return new CB(OD, OF, bullGamma);
 			default:
@@ -125,19 +134,19 @@ public abstract class Tools {
 			}
 		case 2:
 			if ((OF & 0x1) == 0x1) { // OF and 0001 to select last bit
-				return new NOP(bullGamma); //new TB(AD, OD, OF, bullGamma)
+				return new TB(AD, OD, OF, bullGamma);
 			} else {
 				return new BT(AD, OD, OF, bullGamma);
 			}
 		case 3:
-			return new NOP(bullGamma); //new ZB(AD, OD, OF, bullGamma);
+			return new ZB(AD, OD, OF, bullGamma);
 		case 4:
 			return new KB(AD, OD, OF, bullGamma);
 		case 5:
 			if (AD != 0) {
 				throw new InvalidInstructionError("5" + Instruction.getChar(AD) + "xx");
 			}
-			return new NOP(bullGamma); //new GG(OD, OF, bullGamma);
+			return new GG(OD, OF, bullGamma);
 		case 6:
 			return new BO(AD, OD, OF, bullGamma);
 		case 7:
@@ -159,15 +168,15 @@ public abstract class Tools {
 		case 10:
 			return new AN(AD, OD, OF, bullGamma);
 		case 11:
-			return new NOP(bullGamma); // new SN(AD, OD, OF, bullGamma);
+			return new SN(AD, OD, OF, bullGamma);
 		case 12:
-			return new NOP(bullGamma); //new MR(AD, OD, OF, bullGamma);
+			return new MR(AD, OD, OF, bullGamma);
 		case 13:
-			return new NOP(bullGamma); //new DR(AD, OD, OF, bullGamma);
+			return new DR(AD, OD, OF, bullGamma);
 		case 14:
-			return new NOP(bullGamma); //new MC(AD, OD, OF, bullGamma);
+			return new MC(AD, OD, OF, bullGamma);
 		case 15:
-			return new NOP(bullGamma); //new DC(AD, OD, OF, bullGamma);
+			return new DC(AD, OD, OF, bullGamma);
 		default:
 			throw new Error("Fell in default case when it shouldn't have happened");
 		}

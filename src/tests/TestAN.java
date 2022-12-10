@@ -4,13 +4,14 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import instructions.AN;
+import instructions.Tools;
 import machine.BullGamma;
 import machine.Memory;
 
 public class TestAN {
 
 	@Test
-	public void testPositive() {
+	public void testM1posMBpos() {
 		//should add when M1 and MB are positive
 		BullGamma bullGamma = new BullGamma();
 		Memory m1 = bullGamma.getMemory(1);
@@ -21,15 +22,11 @@ public class TestAN {
 			m2.blocks[i] = 9;
 		}
 		new AN((byte)2, (byte)0, (byte)8, bullGamma).execute();
-		int total = 0;
-		for (int  i = 0; i < 12; ++i) {
-			total += m1.blocks[i]*Math.pow(10,i);
-		}
-		assertEquals(total, 199999998);
+		assertEquals(Tools.toLong(m1), 199999998);
 	}
 
 	@Test
-	public void testNegative() {
+	public void testM1negMBneg() {
 		// should add when M1 and MB are negative
 		BullGamma bullGamma = new BullGamma();
 		Memory m1 = bullGamma.getMemory(1);
@@ -44,11 +41,7 @@ public class TestAN {
         System.out.println("M1: "+m1);
         System.out.println("M2: "+m2);       
         new AN((byte)2, (byte)0, (byte)8, bullGamma).execute();
-        int total = 0;
-        for (int i = 0; i < 12; ++i) {
-          total += m1.blocks[i]*Math.pow(10,i);
-        }
-        assertEquals(total, 109999998);
+        assertEquals(Tools.toLong(m1), 109999998);
         assertEquals(bullGamma.ms1, 10); // sign
 	}
 

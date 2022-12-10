@@ -228,6 +228,12 @@ public class BullGamma {
 	  machine.setBullGamma(this);
 	}
 	
+	public ConnectedMachine[] getConnectedMachines() { // TODO check list to array
+		ConnectedMachine[] res = new ConnectedMachine[connectedMachines.size()];
+	    connectedMachines.toArray(res);
+	    return res;
+	}
+	
 	public MagneticDrum getMagneticDrum() {
 		return magneticDrum;
 	}
