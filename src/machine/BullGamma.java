@@ -60,6 +60,7 @@ public class BullGamma {
 	Octad currentOctad;
 
 	List<ConnectedMachine> connectedMachines;
+	MagneticDrum magneticDrum;
 	
 	/**
 	 * Constructs a new instance of BullGamma
@@ -91,7 +92,7 @@ public class BullGamma {
 		this.currentOctad = this.groups[0].octads[0];
 
 		// Other
-//		this.magneticDrum = new MagneticDrum(this);  // TODO add drum
+		this.magneticDrum = new MagneticDrum(this);  // TODO add drum
 		this.connectedMachines = new ArrayList<ConnectedMachine>();
 		this._memoryMode = MemoryMode.DECIMAL;
 
@@ -225,6 +226,10 @@ public class BullGamma {
 	public void connectMachine(ConnectedMachine machine) {
 	  this.connectedMachines.add(machine);
 	  machine.setBullGamma(this);
+	}
+	
+	public MagneticDrum getMagneticDrum() {
+		return magneticDrum;
 	}
 
 }

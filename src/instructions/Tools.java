@@ -127,7 +127,7 @@ public abstract class Tools {
 			if ((OF & 0x1) == 0x1) { // OF and 0001 to select last bit
 				return new NOP(bullGamma); //new TB(AD, OD, OF, bullGamma)
 			} else {
-				return new NOP(bullGamma); //new BT(AD, OD, OF, bullGamma)
+				return new BT(AD, OD, OF, bullGamma);
 			}
 		case 3:
 			return new NOP(bullGamma); //new ZB(AD, OD, OF, bullGamma);

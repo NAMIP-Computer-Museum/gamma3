@@ -14,7 +14,7 @@ public class AN extends OperationWithPreShift {
 		super((byte)10, AD, OD, OF, bullGamma);
 	}
 
-	public void _exeInstructionLogic() {
+	void _exeInstructionLogic() {
 		Memory  m1 = this.bullGamma.getMemory(1);
 		if (this.AD > 1) { // use of MB
 			Memory mb = this.bullGamma.getMemory(this.AD);

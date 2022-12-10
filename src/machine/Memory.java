@@ -174,7 +174,7 @@ public class Memory extends Word {
 			this.blocks[to%this.blocks.length] += carry;
 		}
 	}
-	
+
 	public void add(Memory other, byte from, byte to) {  // TODO check why true (seems ok)
 		add(other,from,to,true);
 	}
@@ -184,7 +184,7 @@ public class Memory extends Word {
 	 * @param value the value to add, must be between -16 and 16
 	 * @param at the block index to which the value should be added
 	 */
-	public void addValue(int value, int at) {
+	public void addValue(byte value, int at) {
 		assert (value > -16) : "value should be superior to -16";
 		assert (value < 16) : "value should be inferior to 16";
 		assert (at < this.blocks.length) : "at should be inferior to the number of blocks per memory";
@@ -251,9 +251,81 @@ public class Memory extends Word {
 			this.bullGamma.ms1 = 10;
 		}
 	}
-	
+
 	public void subtract(Memory other, byte from, byte to) {
 		subtract(other,from,to,from,to);
 	}
+
+
+	/**
+	 * multiply the given memory to this one
+	 * @param other the memory that should be multiplied
+	 * @param from index of the block from which the multiplication should start
+	 * @param to index of the block to which the multiplication should end (excluded)
+	 */
+	public void multiply(Memory other, byte  from, byte to) {
+		while (this.bullGamma.md != 0) {
+			if (this.blocks[0] == 0) {
+				this.shiftRight();
+				this.bullGamma.md--;
+			} else {
+				this.blocks[0]--;
+				this.add(other, from, to, false);
+			}
+		}
+	}
+
+	/**
+	 * multiply the memory with the given value, equivalent to this = this * value * (10 or 2)^at
+	 * @param value
+	 * @param at
+	 */
+	public void multiplyValue(byte value, byte at) {
+		while (this.bullGamma.md != 0) {
+			if (this.blocks[0] == 0) {
+				this.shiftRight();
+				this.bullGamma.md--;
+			} else {
+				this.blocks[0]--;
+				this.addValue(value, at);
+			}
+		}
+	}
+
+	/**
+	 * divide the given memory to this one
+	 * @param other the memory that should be divided
+	 * @param from index of the block from which the division should start
+	 * @param to index of the block to which the division should end (excluded)
+	 */
+	public void divide(Memory other, byte from, byte to) {
+		long vmb = other.getDecimalValue(from, to);
+		if (vmb == 0) {
+			throw new Error("Division by 0.");
+		}
+		while (this.bullGamma.md > 0) {
+			while (this.getDecimalValue((byte)(from + this.blocks.length - NB_CHRS_PER_WORD), (byte)this.blocks.length) < vmb
+					&& this.bullGamma.md > 0) {
+				this.shiftLeft();
+				this.bullGamma.md--;
+			}
+			while (this.getDecimalValue((byte)(from + this.blocks.length - NB_CHRS_PER_WORD), (byte)this.blocks.length) >= vmb) {
+				this.blocks[0]++;
+				this.subtract(other, from, to, (byte)(from + this.blocks.length - NB_CHRS_PER_WORD), (byte)this.blocks.length);
+			}
+		}
+	}
+
+
+	/**
+	 * divide the memory with the given value, equivalent to this = this / (value * (10 or 2)^at)
+	 * @param value
+	 * @param at
+	 */
+	public void divideValue(byte value, byte at) {
+		Memory mb = new Memory(0, this.bullGamma);
+		mb.blocks[at] = value;
+		this.divide(mb, (byte)0, (byte)(at + 1));
+	}	
 
 }
