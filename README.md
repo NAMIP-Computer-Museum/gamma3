@@ -9,7 +9,7 @@ From the business perspective, computers were introduced in a context of mecanog
 
 ## Main features
 
-The initial core of the machine supported 7 memories implemented using delay lines: 6 readable and 1 that could store the output of an operation, numbered from M0 to M7 (with M0 and M1 being logically the same memory). Those registers are one "Word" long, i.e. 12 characters. The character is 4 bits and can code an HEX or a BCD (as the computer ALU was initially designed to operate in decimal). 
+The initial core of the machine supported 7 memories (called "banal") implemented using delay lines: 6 readable and 1 that could store the output of an operation, numbered from M0 to M7 (with M0 and M1 being logically the same memory). Those registers are one "Word" long, i.e. 12 characters. The character is 4 bits and can code an HEX or a BCD (as the computer ALU was initially designed to operate in decimal). 
 
 The programming was initially done through a connection panel supporting 64 instructions. The instruction are specified in 4 characters with the following structure: 
 * TO: operation type (with some mnemonic), like AN (add), SN (subtract), MR (reduced multiplication), MC (complete multiplication),...
@@ -20,7 +20,8 @@ This means a Word can also contain 3 instructions
 
 Initial instructions types covered:
 * resetting, loading data into memory
-* ALU: add, subtract, multiplication (with in reduced and complete flavours), division (also with reduced and complete flavours)
+* moving data between banal memories
+* ALU: shifts, add, subtract, multiplication (with in reduced and complete flavours), division (also with reduced and complete flavours)
 * comparison
 * jumps
 
