@@ -1,11 +1,13 @@
 package machine;
 
 import instructions.Instruction;
+import ui.UIPane;
 
 public class Execution {
 
 	BullGamma bullGamma;
 	Console console;
+	UIPane uipane;
 
 	public Execution(BullGamma bullGamma) {
 		assert bullGamma!=null :  "A BullGamma instance must be provided.";
@@ -19,7 +21,9 @@ public class Execution {
 	 */
 	public void executeNextInstruction() {
 		this.bullGamma.executeNextInstruction();
+		updateUIPane();
 	}
+	
 
 	/**
 	 * Executes instructions until the given line in the given series is reached
@@ -76,5 +80,15 @@ public class Execution {
 	 */
 	public void writeConsoleLine(String line) {
 		this.console.push(line);
+	}
+	
+	public void setUIPane(UIPane uipane) {
+		this.uipane=uipane;
+	}
+	
+	public void updateUIPane() {
+		if (uipane==null) return;
+		
+		uipane.update();
 	}
 }

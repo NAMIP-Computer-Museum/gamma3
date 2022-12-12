@@ -203,7 +203,7 @@ public class BullGamma {
 		Instruction instr=this.getSerie(this.ns).getInstruction(old_cp);
 		Memory m1=getMemory(1);
 		Memory m4=getMemory(4);
-		System.out.println(instr+"\t"+instr.getShortType()+"\t"+m1+"\t"+m4);
+		System.out.println(instr+"\t"+instr.getShortType()+"\t"+m1+"\t"+m4); // TODO console ?
 		instr.execute();
 	}
 
