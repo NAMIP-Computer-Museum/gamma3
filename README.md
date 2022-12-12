@@ -26,10 +26,12 @@ Initial instructions types covered:
 * jumps
 
 Later evolution of the machine introduced more features and thus additional instruction types
-* Extension Tambour (ET):
+* Extension Tambour (ET): load/save page in/from group
 * Binary operation mode: in this mode Word are interpreted as 48 bits
 
-## Java emulator
+## Java emulator/simulator
+
+Emulator or simulator question
 
 ## Usage
 
