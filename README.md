@@ -46,4 +46,8 @@ This project is licensed under the GNU GPU License - see the LICENCE.md for deta
 * Fédération des Equipes Bull en Belgique for access to their GAMMA3 documentation
 * José Maillard and Lucas Trampal for the Open Source javascript emulator
 * Vincent Joguin for its DOS-based emulator
+** vidéo (frenhc): https://www.youtube.com/watch?v=X_ermLbQYLI
+** executable: http://vincent.joguin.com/GAMMAET.ZIP
 * ACONIT for on-line documentation and running emulator and keeping the GAMMA3 memory alive with students
+** documentation: https://www.aconit.org/histoire/Gamma-3
+** online emulator: https://www.aconit.org/histoire/Gamma-3/Simulateur
