@@ -37,3 +37,13 @@ Emulator or simulator question
 
 ## Limitation and future work
 
+## License
+
+This project is licensed under the GNU GPU License - see the LICENCE.md for details.
+
+## Acknowledgemet
+
+* Fédération des Equipes Bull en Belgique for access to their GAMMA3 documentation
+* José Maillard and Lucas Trampal for the Open Source javascript emulator
+* Vincent Joguin for its DOS-based emulator
+* ACONIT for on-line documentation and running emulator and keeping the GAMMA3 memory alive with students
