@@ -29,16 +29,30 @@ Later evolution of the machine introduced more features and thus additional inst
 * Extension Tambour (ET): load/save page in/from group
 * Binary operation mode: in this mode Word are interpreted as 48 bits
 
-## Java emulator/simulator
+## Building a Java emulator
 
-Emulator or simulator question
+The emulator is strongly based on the ACONIC Javascript emulator (and adopts the same GPL3 licence for this purpose). The process to understand 
+the GAMMA 3 was actuelly a mix of studying the documentation and building the JAVA code based on the existing Javascript by progressive enrichment
+of the instrusction set that followed the historical extensions from the code "slave" BCD machine to the final independant GAMMA ET (with drum)
+
+The present version of the code is less structured than the javaxcript and composed of 3 package:
+* instructions: for the instruction set (with a few abstract classes gathering commonalities by instruction classes
+* machine: for the architecture of the machine parts
+* ui: for interacting with the emulator (currently basic, still mostly based on test scripts
+* tests: unit testing and some program  runs
 
 ## Usage
+
+After cloning the projet, you can either:
+* try different unit tests for understanding specific instruction or testRun for a program (more to come, programs loaded from an "assembly" file)
+* use the UI (on-going work) by running the ui.UIPane class
 
 ## Limitation and future work
 
 * Raw UI
 * Limited unit testing
+* More programs
+* Documentation, video
 
 ## License
 
